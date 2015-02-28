@@ -1,0 +1,122 @@
+package com.example.anna.netflix;
+
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.view.*;
+import android.widget.*;
+import java.io.*;
+import java.net.URL;
+import android.view.*;
+
+
+public class Choose extends Activity implements View.OnClickListener {
+
+    private ImageButton b_center, b_tleft, b_tright, b_bleft, b_bright;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_choose);
+
+        b_center = (ImageButton) findViewById(R.id.Center);
+        //b_center.setImageDrawable(R.drawable.));
+        //setImage(b_center, "http://ia.media-imdb.com/images/M/MV5BMTgwMjI4MzU5N15BMl5BanBnXkFtZTcwMTMyNTk3OA@@._V1_SY317_CR12,0,214,317_AL_.jpg");
+        b_tleft = (ImageButton) findViewById(R.id.TopLeft);
+        //setImage(b_tleft, "http://ia.media-imdb.com/images/M/MV5BMTgwMjI4MzU5N15BMl5BanBnXkFtZTcwMTMyNTk3OA@@._V1_SY317_CR12,0,214,317_AL_.jpg");
+        b_tright = (ImageButton) findViewById(R.id.TopRight);
+        //setImage(b_tright, "http://ia.media-imdb.com/images/M/MV5BMTgwMjI4MzU5N15BMl5BanBnXkFtZTcwMTMyNTk3OA@@._V1_SY317_CR12,0,214,317_AL_.jpg");
+        b_bleft = (ImageButton) findViewById(R.id.BottomLeft);
+        //setImage(b_bleft, "http://ia.media-imdb.com/images/M/MV5BMTgwMjI4MzU5N15BMl5BanBnXkFtZTcwMTMyNTk3OA@@._V1_SY317_CR12,0,214,317_AL_.jpg");
+        b_bright = (ImageButton) findViewById(R.id.BottomRight);
+        //setImage(b_bright, "http://ia.media-imdb.com/images/M/MV5BMTgwMjI4MzU5N15BMl5BanBnXkFtZTcwMTMyNTk3OA@@._V1_SY317_CR12,0,214,317_AL_.jpg");
+
+        addListener();
+    }
+    public void addListener(){
+        b_center.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View arg0) {
+                Toast.makeText(Choose.this,"This is movie!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        b_tleft.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View arg0) {
+                b_center.setImageDrawable(b_tleft.getDrawable());
+                resetScreen(b_tleft);
+                Toast.makeText(Choose.this,"The image was changed!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        b_tright.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View arg0) {
+                b_center.setImageDrawable(b_tright.getDrawable());
+                resetScreen(b_tright);
+                Toast.makeText(Choose.this,"The image was changed!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        b_bleft.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View arg0) {
+                b_center.setImageDrawable(b_bleft.getDrawable());
+                resetScreen(b_bleft);
+                Toast.makeText(Choose.this,"The image was changed!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        b_bright.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View arg0) {
+                b_center.setImageDrawable(b_bright.getDrawable());
+                resetScreen(b_bright);
+                Toast.makeText(Choose.this,"The image was changed!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    public void resetScreen(ImageButton b){
+
+    }
+
+    private void setImage(ImageButton b, String m_string) {
+        try{
+            InputStream i_o = (InputStream) new URL(m_string).getContent();
+            Drawable  d = Drawable.createFromStream(i_o, "name");
+            b.setImageDrawable(d);
+
+        } catch (Exception e){}
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_choose, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+}
