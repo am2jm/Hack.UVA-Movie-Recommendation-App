@@ -5,48 +5,71 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Movie {
-	private String id;
+	private int id;
 	private String title;
 	private String releasedate;
 	private String videodate;
 	private String URL;
 	private String unknown;
 	private ArrayList<String> genre;
-	private static ArrayList<String> possible = (ArrayList<String>) Arrays
-			.asList("unknown", "Action", "Adventure", "Animation",
-					"Children's", "Comedy", "Crime", "Documentary", "Drama",
-					"Fantasy", "Film-Noir", "Horror", "Musical", "Mystery",
-					"Romance", "Sci-Fi", "Thriller", "War", "Western");
+	private ArrayList<String> possible;
 
-	public Movie(String id) throws Exception {
+	public Movie(int id) throws Exception {
+		// fix to try catch
 		URL database = new URL(
 				"http://files.grouplens.org/datasets/movielens/ml-100k/u.item");
 		Scanner input = new Scanner(database.openStream());
-		genre = new ArrayList<String>();
+		genre = new ArrayList<String>(); //genre of each movie instance 
+		
+		possible = new ArrayList<String>(); //list of possible genres
+		possible.add("unknown");
+		possible.add("Action");
+		possible.add("Adventure");
+		possible.add("Animation");
+		possible.add("Children's");
+		possible.add("Comedy");
+		possible.add("Crime");
+		possible.add("Documentary");
+		possible.add("Drama");
+		possible.add("Fantasy");
+		possible.add("Film-Noir");
+		possible.add("Horror");
+		possible.add("Musical");
+		possible.add("Mystery");
+		possible.add("Romance");
+		possible.add("Sci-Fi");
+		possible.add("Thriller");
+		possible.add("War");
+		possible.add("Western");
 
 		while (input.hasNextLine()) {
 			String[] line = input.nextLine().split("|");
-			this.id = line[0];
+			this.id = Integer.parseInt(line[0]);
 			this.title = line[1];
 			this.releasedate = line[2];
 			this.videodate = line[3];
 			this.URL = line[4];
 
 			for (int i = 5; i < 20; i++) {
-				ArrayList has = new ArrayList<Integer>();
+				ArrayList has = new ArrayList<Integer>(); //temp arraylist of 0/1 values
 				has.add(line[i]);
 				if (has.get(i).equals("1")) {
 					genre.add(possible.get(i - 5));
 				}
 			}
-			if (this.id.equals(id)) {
+			if (this.id == id) {
 				break;
 			}
 		}
 
 	}
 
-	public String getId() {
+	public static void main(String[] args) throws Exception {
+		Movie m = new Movie(1);
+		System.out.print(m);
+	}
+
+	public int getId() {
 		return id;
 	}
 
