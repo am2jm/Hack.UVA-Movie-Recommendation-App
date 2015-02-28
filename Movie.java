@@ -10,7 +10,6 @@ public class Movie {
 	private String releasedate;
 	private String videodate;
 	private String URL;
-	private String unknown;
 	private ArrayList<String> genre;
 	private ArrayList<String> possible;
 
@@ -19,9 +18,9 @@ public class Movie {
 		URL database = new URL(
 				"http://files.grouplens.org/datasets/movielens/ml-100k/u.item");
 		Scanner input = new Scanner(database.openStream());
-		genre = new ArrayList<String>(); //genre of each movie instance 
-		
-		possible = new ArrayList<String>(); //list of possible genres
+		genre = new ArrayList<String>(); // genre of each movie instance
+
+		possible = new ArrayList<String>(); // list of possible genres
 		possible.add("unknown");
 		possible.add("Action");
 		possible.add("Adventure");
@@ -51,9 +50,7 @@ public class Movie {
 			this.URL = line[4];
 
 			for (int i = 5; i < 20; i++) {
-				ArrayList has = new ArrayList<Integer>(); //temp arraylist of 0/1 values
-				has.add(line[i]);
-				if (has.get(i).equals("1")) {
+				if (line[i].equals("1")) {
 					genre.add(possible.get(i - 5));
 				}
 			}
@@ -64,9 +61,16 @@ public class Movie {
 
 	}
 
+	@Override
+	public String toString() {
+		return "Movie [id=" + id + ", title=" + title + ", releasedate="
+				+ releasedate + ", videodate=" + videodate + ", URL=" + URL
+				+ ", genre=" + genre + "]";
+	}
+
 	public static void main(String[] args) throws Exception {
-		Movie m = new Movie(1);
-		System.out.print(m);
+		Movie m = new Movie(0);
+		System.out.print(m.toString());
 	}
 
 	public int getId() {
@@ -87,10 +91,6 @@ public class Movie {
 
 	public String getURL() {
 		return URL;
-	}
-
-	public String getUnknown() {
-		return unknown;
 	}
 
 	public ArrayList<String> getGenre() {
