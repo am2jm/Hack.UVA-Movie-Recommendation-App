@@ -1,8 +1,6 @@
 import java.awt.List;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class Movie {
 	private int id;
@@ -13,11 +11,13 @@ public class Movie {
 	private ArrayList<String> genre;
 	private ArrayList<String> possible;
 
-	public Movie(int id) throws Exception {
-		// fix to try catch
+	public Movie(int id) {
+		Scanner input;
+		try{
 		URL database = new URL(
 				"http://files.grouplens.org/datasets/movielens/ml-100k/u.item");
-		Scanner input = new Scanner(database.openStream());
+		input = new Scanner(database.openStream());
+		}catch(Excpetion e){}
 		genre = new ArrayList<String>(); // genre of each movie instance
 
 		possible = new ArrayList<String>(); // list of possible genres
@@ -40,8 +40,9 @@ public class Movie {
 		possible.add("Thriller");
 		possible.add("War");
 		possible.add("Western");
-
-		while (input.hasNextLine()) {
+		
+		int index = 0;
+		while (input.hasNextLine() && index < id) {
 			String[] line = input.nextLine().split("|");
 			this.id = Integer.parseInt(line[0]);
 			this.title = line[1];
@@ -54,13 +55,9 @@ public class Movie {
 					genre.add(possible.get(i - 5));
 				}
 			}
-			if (this.id == id) {
-				break;
-			}
 		}
-
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Movie [id=" + id + ", title=" + title + ", releasedate="
