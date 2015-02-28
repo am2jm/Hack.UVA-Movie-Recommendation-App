@@ -18,9 +18,10 @@ public class Movie {
 				"http://files.grouplens.org/datasets/movielens/ml-100k/u.item");
 		input = new Scanner(database.openStream());
 		}catch(Excpetion e){}
+		
 		genre = new ArrayList<String>(); // genre of each movie instance
-
 		possible = new ArrayList<String>(); // list of possible genres
+		
 		possible.add("unknown");
 		possible.add("Action");
 		possible.add("Adventure");
@@ -55,6 +56,7 @@ public class Movie {
 					genre.add(possible.get(i - 5));
 				}
 			}
+			index++;
 		}
 	}
 	
