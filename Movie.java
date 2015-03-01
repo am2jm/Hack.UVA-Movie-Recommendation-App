@@ -1,27 +1,24 @@
-import java.awt.List;
-import java.net.URL;
 import java.util.*;
+
 
 public class Movie {
 	private int id;
 	private String title;
 	private String releasedate;
-	private String videodate;
-	private String URL;
+	private String vidreleasedate;
+	private String url;
 	private ArrayList<String> genre;
 	private ArrayList<String> possible;
-
-	public Movie(int id) {
-		Scanner input;
-		try{
-		URL database = new URL(
-				"http://files.grouplens.org/datasets/movielens/ml-100k/u.item");
-		input = new Scanner(database.openStream());
-		}catch(Excpetion e){}
+	
+	public Movie(String m_movie){
+		String [] fields = m_movie.split("\\|");
+		id = Integer.parseInt(fields[0]);
+		title = fields[1];
+		releasedate = fields[2];
+		vidreleasedate = fields[3];
+		url = fields[4];
 		
-		genre = new ArrayList<String>(); // genre of each movie instance
-		possible = new ArrayList<String>(); // list of possible genres
-		
+		possible = new ArrayList();
 		possible.add("unknown");
 		possible.add("Action");
 		possible.add("Adventure");
@@ -42,34 +39,10 @@ public class Movie {
 		possible.add("War");
 		possible.add("Western");
 		
-		int index = 0;
-		while (input.hasNextLine() && index < id) {
-			String[] line = input.nextLine().split("|");
-			this.id = Integer.parseInt(line[0]);
-			this.title = line[1];
-			this.releasedate = line[2];
-			this.videodate = line[3];
-			this.URL = line[4];
-
-			for (int i = 5; i < 20; i++) {
-				if (line[i].equals("1")) {
-					genre.add(possible.get(i - 5));
-				}
-			}
-			index++;
+		for(int i = 5; i < fields.length; i++){
+			
 		}
-	}
-	
-	@Override
-	public String toString() {
-		return "Movie [id=" + id + ", title=" + title + ", releasedate="
-				+ releasedate + ", videodate=" + videodate + ", URL=" + URL
-				+ ", genre=" + genre + "]";
-	}
-
-	public static void main(String[] args) throws Exception {
-		Movie m = new Movie(0);
-		System.out.print(m.toString());
+		
 	}
 
 	public int getId() {
@@ -84,12 +57,12 @@ public class Movie {
 		return releasedate;
 	}
 
-	public String getVideodate() {
-		return videodate;
+	public String getVidreleasedate() {
+		return vidreleasedate;
 	}
 
-	public String getURL() {
-		return URL;
+	public String getUrl() {
+		return url;
 	}
 
 	public ArrayList<String> getGenre() {
