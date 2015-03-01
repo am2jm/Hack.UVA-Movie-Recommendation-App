@@ -40,7 +40,8 @@ public class Theater {
 	}
 	public ArrayList<Movie> getRanGenMov(Movie m) {
 		ArrayList<Movie> randomMovies = new ArrayList<Movie>();
-		double rand = Math.random() * 3;
+		double rand = Math.random() * m.getGenre().size()
+				;
 		ArrayList<Movie> movies = sorting.get(m.getGenre().get((int) rand));
 		for (int i = 0; i < 4; i++) {
 			double rand2 = Math.random() * movies.size();
