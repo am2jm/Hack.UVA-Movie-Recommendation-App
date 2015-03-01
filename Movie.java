@@ -40,7 +40,9 @@ public class Movie {
 		possible.add("Western");
 		
 		for(int i = 5; i < fields.length; i++){
-			
+			if(Integer.parseInt(fields[i]) == 1){
+				genre.add(possible.get(i-5));
+			}
 		}
 		
 	}
