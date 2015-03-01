@@ -1,6 +1,9 @@
 import java.awt.List;
+import java.io.File;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Movie {
 	private int id;
@@ -11,17 +14,14 @@ public class Movie {
 	private ArrayList<String> genre;
 	private ArrayList<String> possible;
 
-	public Movie(int id) {
-		Scanner input;
-		try{
-		URL database = new URL(
-				"http://files.grouplens.org/datasets/movielens/ml-100k/u.item");
-		input = new Scanner(database.openStream());
-		}catch(Excpetion e){}
+	public Movie(int id) throws Exception {
+		// fix to try catch
+		File file = new File("TextFile");
+		Scanner input = new Scanner(file);
+		//System.out.println(input.nextLine());
+		genre = new ArrayList<String>(); //genre of each movie instance 
 		
-		genre = new ArrayList<String>(); // genre of each movie instance
-		possible = new ArrayList<String>(); // list of possible genres
-		
+		possible = new ArrayList<String>(); //list of possible genres
 		possible.add("unknown");
 		possible.add("Action");
 		possible.add("Adventure");
@@ -41,35 +41,37 @@ public class Movie {
 		possible.add("Thriller");
 		possible.add("War");
 		possible.add("Western");
-		
-		int index = 0;
-		while (input.hasNextLine() && index < id) {
+
+		//while (input.hasNextLine()) {
 			String[] line = input.nextLine().split("|");
 			this.id = Integer.parseInt(line[0]);
+			System.out.println(line[1]);
 			this.title = line[1];
 			this.releasedate = line[2];
 			this.videodate = line[3];
 			this.URL = line[4];
 
 			for (int i = 5; i < 20; i++) {
+				
 				if (line[i].equals("1")) {
 					genre.add(possible.get(i - 5));
 				}
 			}
-			index++;
-		}
-	}
+			//if (this.id == id) {
+			//	break;
+			//}
+		//}
 	
+	}
+
+	
+
 	@Override
 	public String toString() {
 		return "Movie [id=" + id + ", title=" + title + ", releasedate="
 				+ releasedate + ", videodate=" + videodate + ", URL=" + URL
-				+ ", genre=" + genre + "]";
-	}
-
-	public static void main(String[] args) throws Exception {
-		Movie m = new Movie(0);
-		System.out.print(m.toString());
+				+ ", genre=" + genre + ", possible="
+				+ possible + "]";
 	}
 
 	public int getId() {
@@ -92,8 +94,13 @@ public class Movie {
 		return URL;
 	}
 
+
 	public ArrayList<String> getGenre() {
 		return genre;
+	}
+	public static void main(String[] args) throws Exception {
+		Movie m = new Movie(0);
+		System.out.print(m.toString());
 	}
 
 }
