@@ -1,106 +1,57 @@
-import java.awt.List;
-import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-
+import java.util.*;
 public class Movie {
 	private int id;
 	private String title;
 	private String releasedate;
-	private String videodate;
-	private String URL;
-	private ArrayList<String> genre;
+	private String vidreleasedate;
+	private String url;
+	private ArrayList<String> genre=new ArrayList<String>();
 	private ArrayList<String> possible;
-
-	public Movie(int id) throws Exception {
-		// fix to try catch
-		File file = new File("TextFile");
-		Scanner input = new Scanner(file);
-		//System.out.println(input.nextLine());
-		genre = new ArrayList<String>(); //genre of each movie instance 
-		
-		possible = new ArrayList<String>(); //list of possible genres
-		possible.add("unknown");
-		possible.add("Action");
-		possible.add("Adventure");
-		possible.add("Animation");
-		possible.add("Children's");
-		possible.add("Comedy");
-		possible.add("Crime");
-		possible.add("Documentary");
-		possible.add("Drama");
-		possible.add("Fantasy");
-		possible.add("Film-Noir");
-		possible.add("Horror");
-		possible.add("Musical");
-		possible.add("Mystery");
-		possible.add("Romance");
-		possible.add("Sci-Fi");
-		possible.add("Thriller");
-		possible.add("War");
-		possible.add("Western");
-
-		//while (input.hasNextLine()) {
-			String[] line = input.nextLine().split("|");
-			this.id = Integer.parseInt(line[0]);
-			System.out.println(line[1]);
-			this.title = line[1];
-			this.releasedate = line[2];
-			this.videodate = line[3];
-			this.URL = line[4];
-
-			for (int i = 5; i < 20; i++) {
-				
-				if (line[i].equals("1")) {
-					genre.add(possible.get(i - 5));
-				}
+	public Movie(String m_movie) {
+		String[] fields = m_movie.split("\\|");
+		id = Integer.parseInt(fields[0]);
+		title = fields[1];
+		releasedate = fields[2];
+		vidreleasedate = fields[3];
+		url = fields[4];
+		String[] list = { "unknown", "Action", "Adventure", "Animation",
+				"Children's", "Comedy", "Crime", "Documentary", "Drama",
+				"Fantasy", "Film-Noir", "Horror", "Musical", "Mystery",
+				"Romance", "Sci-Fi", "Thriller", "War", "Western" };
+		possible = new ArrayList<String>(); // list of possible genres
+		possible.addAll(Arrays.asList(list));
+		for (int i = 5; i < fields.length; i++) {
+			if (Integer.parseInt(fields[i]) == 1) {
+				genre.add(possible.get(i - 5));
 			}
-			//if (this.id == id) {
-			//	break;
-			//}
-		//}
-	
+		}
 	}
-
-	
-
-	@Override
-	public String toString() {
-		return "Movie [id=" + id + ", title=" + title + ", releasedate="
-				+ releasedate + ", videodate=" + videodate + ", URL=" + URL
-				+ ", genre=" + genre + ", possible="
-				+ possible + "]";
-	}
-
 	public int getId() {
 		return id;
 	}
-
 	public String getTitle() {
 		return title;
 	}
-
 	public String getReleasedate() {
 		return releasedate;
 	}
-
-	public String getVideodate() {
-		return videodate;
+	public String getVidreleasedate() {
+		return vidreleasedate;
 	}
-
-	public String getURL() {
-		return URL;
+	public String getUrl() {
+		return url;
 	}
-
-
 	public ArrayList<String> getGenre() {
 		return genre;
 	}
-	public static void main(String[] args) throws Exception {
-		Movie m = new Movie(0);
+	public static void main(String [] args){
+		Movie m = new Movie("1|Toy Story (1995)|01-Jan-1995||http://us.imdb.com/M/title-exact?Toy%20Story%20(1995)|0|0|0|1|1|1|0|0|0|0|0|0|0|0|0|0|0|0|0");
 		System.out.print(m.toString());
 	}
-
+	@Override
+	public String toString() {
+		return "Movie [id=" + id + ", title=" + title + ", releasedate="
+				+ releasedate + ", vidreleasedate=" + vidreleasedate + ", url="
+				+ url + ", genre=" + genre + "]";
+	}
 }
